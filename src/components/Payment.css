@@ -1,0 +1,21 @@
+.payment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a1d1a;
+  color: white;
+  padding: 30px;
+  margin: 20px;
+  border: none;
+  border-radius: 8px;
+}
+
+.payment button {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ff9900;
+  color: aliceblue;
+}

@@ -1,0 +1,10 @@
+.toast p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+}

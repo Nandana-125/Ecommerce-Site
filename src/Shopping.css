@@ -1,0 +1,11 @@
+.shopping {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.shopping-content {
+  display: flex;
+  gap: 20px;
+}
