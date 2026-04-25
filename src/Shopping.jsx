@@ -1,5 +1,6 @@
 import Cart from "./components/Cart";
 import Payment from "./components/Payment";
+import ProductDetails from "./components/ProductDetails";
 import "./Shopping.css";
 
 const Shopping = ({ cartItems, setCartItems }) => {
