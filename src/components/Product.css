@@ -5,6 +5,10 @@
   padding: 20px;
 }
 
+.product a {
+  text-decoration: none;
+  color: inherit;
+}
 .price {
   display: flex;
   align-items: center;

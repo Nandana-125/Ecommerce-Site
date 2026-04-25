@@ -4,6 +4,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Toast from "./Toast";
+import { Link } from "react-router-dom";
 import "./Product.css";
 const Product = ({ searchText, catFilter, setCartItems, cartItems }) => {
   const [products, setProducts] = useState([]);
@@ -48,24 +49,27 @@ const Product = ({ searchText, catFilter, setCartItems, cartItems }) => {
   return (
     <div className="product">
       {filteredProduct.map((p) => (
-        <div className="items" key={p.id}>
-          <img src={p.thumbnail} alt={p.title} />
+        <Link to={`/ProductDetails/${p.id}`}>
+          <div className="items" key={p.id}>
+            <img src={p.thumbnail} alt={p.title} />
 
-          <h4>{p.title}</h4>
-          <p>
-            ⭐️{p.rating}- {p.reviews?.length || 0} reviews
-          </p>
+            <h4>{p.title}</h4>
+            <p>
+              ⭐️{p.rating}- {p.reviews?.length || 0} reviews
+            </p>
 
-          <div className="price">
-            <p>${p.price}</p>
-            <button
-              onClick={() => handleClick(p.title, p.price, p.thumbnail, p.id)}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
+            <div className="price">
+              <p>${p.price}</p>
+              <button
+                onClick={() => handleClick(p.title, p.price, p.thumbnail, p.id)}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+              </button>
+            </div>
           </div>
-        </div>
+        </Link>
       ))}
+
       <Toast added={added} message={message} />
     </div>
   );
