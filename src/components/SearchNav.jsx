@@ -35,6 +35,7 @@ const SearchNav = ({ setSearchText, user, setIsLoggedIn }) => {
         <p>{user.name}</p>
         <button onClick={handleLogout}>Logout</button>
       </div>
+      <div className="sort"></div>
     </div>
   );
 };
