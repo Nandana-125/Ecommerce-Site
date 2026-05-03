@@ -6,7 +6,13 @@ import axios from "axios";
 import Toast from "./Toast";
 import { Link } from "react-router-dom";
 import "./Product.css";
-const Product = ({ searchText, catFilter, setCartItems, cartItems }) => {
+const Product = ({
+  searchText,
+  catFilter,
+  setCartItems,
+  cartItems,
+  sortBy,
+}) => {
   const [products, setProducts] = useState([]);
   const [message, setMessage] = useState("");
   const [added, setAdded] = useState(false);
@@ -45,12 +51,19 @@ const Product = ({ searchText, catFilter, setCartItems, cartItems }) => {
       p.title.toLowerCase().includes(searchText.toLowerCase()) &&
       (catFilter === "All" ? true : p.category === catFilter)
   );
-
+  const sortedProduct = [...filteredProduct];
+  if (sortBy === "price-asc") {
+    sortedProduct.sort((a, b) => a.price - b.price);
+  } else if (sortBy === "price-desc") {
+    sortedProduct.sort((a, b) => b.price - a.price);
+  } else if (sortBy === "rating") {
+    sortedProduct.sort((a, b) => a.rating - b.rating);
+  }
   return (
     <div className="product">
-      {filteredProduct.map((p) => (
-        <Link to={`/ProductDetails/${p.id}`}>
-          <div className="items" key={p.id}>
+      {sortedProduct.map((p) => (
+        <Link key={p.id} to={`/ProductDetails/${p.id}`}>
+          <div className="items">
             <img src={p.thumbnail} alt={p.title} />
 
             <h4>{p.title}</h4>
