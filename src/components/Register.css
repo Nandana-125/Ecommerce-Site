@@ -1,0 +1,46 @@
+.reg-content {
+  display: flex;
+  gap: 50px;
+}
+
+.reg-content img {
+  width: 600px;
+  height: 600px;
+  border-radius: 8px;
+}
+
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 150px;
+}
+
+.reg-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.reg-text input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 35px;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px;
+  background-color: none;
+}
+
+.reg-text button {
+  width: 105%;
+  height: 35px;
+  border-radius: 8px;
+  padding: 10px;
+  border: none;
+  background-color: #ffee93;
+}

@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import "./ProductDetails.css";
 import axios from "axios";
 import Toast from "./Toast";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 const ProductDetails = ({ setCartItems, cartItems }) => {
   const { id } = useParams();
   const [products, setProducts] = useState({});

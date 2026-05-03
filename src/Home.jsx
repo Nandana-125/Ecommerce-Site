@@ -4,7 +4,7 @@ import SearchNav from "./components/SearchNav";
 import SideNav from "./components/SideNav";
 import "./App.css";
 
-const Home = ({ setCartItems, cartItems }) => {
+const Home = ({ setCartItems, cartItems, user, setIsLoggedIn }) => {
   const [searchText, setSearchText] = useState("");
   const [catFilter, setCatFilter] = useState("All");
 
@@ -13,7 +13,11 @@ const Home = ({ setCartItems, cartItems }) => {
       <div className="page" style={{ display: "flex", flexDirection: "row" }}>
         <SideNav setCatFilter={setCatFilter} cartItems={cartItems} />
         <div className="content">
-          <SearchNav setSearchText={setSearchText} />
+          <SearchNav
+            setSearchText={setSearchText}
+            user={user}
+            setIsLoggedIn={setIsLoggedIn}
+          />
           <h2>Reccomended</h2>
           <div className="product-list">
             <Product

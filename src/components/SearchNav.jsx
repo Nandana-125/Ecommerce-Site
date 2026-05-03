@@ -3,12 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faCartShopping, faSearch } from "@fortawesome/free-solid-svg-icons";
 import "./Search.css";
+import { useNavigate } from "react-router-dom";
 
-const SearchNav = ({ setSearchText }) => {
+const SearchNav = ({ setSearchText, user, setIsLoggedIn }) => {
   const [input, setInput] = useState("");
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setInput(e.target.value);
     setSearchText(e.target.value);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    setIsLoggedIn(false);
+    navigate("/Login");
   };
 
   return (
@@ -24,6 +32,8 @@ const SearchNav = ({ setSearchText }) => {
         <FontAwesomeIcon icon={faHeart} />
         <FontAwesomeIcon icon={faCartShopping} />
         <FontAwesomeIcon icon={faUser} />
+        <p>{user.name}</p>
+        <button onClick={handleLogout}>Logout</button>
       </div>
     </div>
   );
