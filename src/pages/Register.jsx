@@ -1,23 +1,28 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Register.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Toast from "../components/Toast";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
+  const [added, setAdded] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleCreate = () => {
     if (password !== confirmPass) {
-      alert("passwords dont match");
+      setAdded(true);
+      setMessage("Passwords donot match❗️");
       return;
     }
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
     if (users.some((u) => u.email === email)) {
-      alert("email already exists");
+      setAdded(true);
+      setMessage("Email already exists❗️");
     } else {
       localStorage.setItem(
         "users",
@@ -26,9 +31,11 @@ const Register = () => {
           { name: username, email: email, password: password },
         ])
       );
-      alert("account created successfully");
+      setAdded(true);
+      setMessage("Account Created successfully ✅");
       navigate("/Login");
     }
+    setTimeout(() => setAdded(false), 2000);
   };
 
   return (
@@ -66,6 +73,7 @@ const Register = () => {
           </div>
         </div>
       </div>
+      <Toast added={added} message={message} />
     </div>
   );
 };

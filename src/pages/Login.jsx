@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import Toast from "../components/Toast";
 
 const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [added, setAdded] = useState(false);
+  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
   const handleLogin = () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     if (users === null) {
-      alert("no user found");
+      setAdded(true);
+      setMessage("⚠️ No users found");
       return;
     }
 
@@ -24,8 +28,10 @@ const Login = ({ setIsLoggedIn }) => {
       setIsLoggedIn(true);
       localStorage.setItem("currentUser", JSON.stringify(loggedInUser));
     } else {
-      alert("no user found");
+      setAdded(true);
+      setMessage("⚠️ No user found");
     }
+    setTimeout(() => setAdded(false), 2000);
   };
 
   return (
@@ -51,6 +57,7 @@ const Login = ({ setIsLoggedIn }) => {
           </div>
         </div>
       </div>
+      <Toast added={added} message={message} />
     </div>
   );
 };

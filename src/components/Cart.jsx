@@ -28,6 +28,9 @@ const Cart = ({ cartItems, setCartItems }) => {
         Total Items in cart (
         {cartItems.reduce((total, m) => total + m.quantity, 0)})
       </p>
+      <div className="empty">
+        {cartItems.length === 0 ? <p>Cart is empty !!</p> : null}
+      </div>
       <div className="cart-grid">
         <div className="cart-heading">
           <h4>Product</h4>

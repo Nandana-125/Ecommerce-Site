@@ -1,6 +1,5 @@
-import Cart from "./components/Cart";
-import Payment from "./components/Payment";
-import ProductDetails from "./components/ProductDetails";
+import Cart from "../components/Cart";
+import Payment from "../components/Payment";
 import "./Shopping.css";
 
 const Shopping = ({ cartItems, setCartItems }) => {
@@ -9,7 +8,7 @@ const Shopping = ({ cartItems, setCartItems }) => {
       <h1>Shopping Cart </h1>
       <div className="shopping-content">
         <Cart cartItems={cartItems} setCartItems={setCartItems} />
-        <Payment cartItems={cartItems} />
+        <Payment cartItems={cartItems} setCartItems={setCartItems} />
       </div>
     </div>
   );

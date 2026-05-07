@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faCartShopping, faSearch } from "@fortawesome/free-solid-svg-icons";
 import "./Search.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const SearchNav = ({ setSearchText, user, setIsLoggedIn }) => {
   const [input, setInput] = useState("");
@@ -29,7 +29,10 @@ const SearchNav = ({ setSearchText, user, setIsLoggedIn }) => {
       />
       <FontAwesomeIcon icon={faSearch} />
       <div className="icons">
-        <FontAwesomeIcon icon={faHeart} />
+        <Link to="/wishlist">
+          <FontAwesomeIcon icon={faHeart} />
+        </Link>
+
         <FontAwesomeIcon icon={faCartShopping} />
         <FontAwesomeIcon icon={faUser} />
         <p>{user.name}</p>
