@@ -1,4 +1,3 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
@@ -16,9 +15,10 @@ const Product = ({
   const [products, setProducts] = useState([]);
   const [message, setMessage] = useState("");
   const [added, setAdded] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleClick = (name, price, image) => {
-    setMessage(name);
+    setMessage("Added " + name + " to cart ✅");
     setAdded(true);
     if (cartItems.some((m) => m.name === name)) {
       setCartItems(
@@ -40,9 +40,11 @@ const Product = ({
       .get("https://dummyjson.com/products")
       .then((res) => {
         setProducts(res.data.products);
+        setLoading(false);
       })
       .catch((err) => {
         console.log("error fetching" + err);
+        setLoading(false);
       });
   }, []);
 
@@ -60,30 +62,41 @@ const Product = ({
     sortedProduct.sort((a, b) => a.rating - b.rating);
   }
   return (
-    <div className="product">
-      {sortedProduct.map((p) => (
-        <Link key={p.id} to={`/ProductDetails/${p.id}`}>
-          <div className="items">
-            <img src={p.thumbnail} alt={p.title} />
+    <div>
+      <p>Results : {sortedProduct.length}</p>
+      {loading ? (
+        <p>Loading ....</p>
+      ) : (
+        <div>
+          <div className="product">
+            {sortedProduct.map((p) => (
+              <div key={p.id} className="items">
+                <Link to={`/product-details/${p.id}`}>
+                  <img src={p.thumbnail} alt={p.title} />
+                </Link>
+                <h4>{p.title}</h4>
+                <p>
+                  ⭐️{p.rating}- {p.reviews?.length || 0} reviews
+                </p>
 
-            <h4>{p.title}</h4>
-            <p>
-              ⭐️{p.rating}- {p.reviews?.length || 0} reviews
-            </p>
+                <div className="price">
+                  <p>${p.price}</p>
 
-            <div className="price">
-              <p>${p.price}</p>
-              <button
-                onClick={() => handleClick(p.title, p.price, p.thumbnail, p.id)}
-              >
-                <FontAwesomeIcon icon={faPlus} />
-              </button>
-            </div>
+                  <button
+                    onClick={() =>
+                      handleClick(p.title, p.price, p.thumbnail, p.id)
+                    }
+                  >
+                    <FontAwesomeIcon icon={faPlus} />
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            <Toast added={added} message={message} />
           </div>
-        </Link>
-      ))}
-
-      <Toast added={added} message={message} />
+        </div>
+      )}
     </div>
   );
 };

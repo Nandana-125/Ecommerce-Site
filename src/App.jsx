@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import Product from "./components/Product";
-import SearchNav from "./components/SearchNav";
-import SideNav from "./components/SideNav";
+import { useState } from "react";
 import "./App.css";
-import Cart from "./components/Cart";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import Shopping from "./Shopping";
-import Home from "./Home";
-import ProductDetails from "./components/ProductDetails";
-import Register from "./components/Register";
-import Login from "./components/Login";
+import Shopping from "./pages/Shopping";
+import Home from "./pages/Home";
+import ProductDetails from "./pages/ProductDetails";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Wishlist from "./pages/Wishlist";
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
 
   const [isLoggedIn, setIsLoggedIn] = useState(
     !!localStorage.getItem("currentUser")
@@ -35,37 +33,56 @@ const App = () => {
                 setIsLoggedIn={setIsLoggedIn}
               />
             ) : (
-              <Navigate to="/Login" />
+              <Navigate to="/login" />
             )
           }
         />
         <Route
-          path="/Shopping"
+          path="/shopping-cart"
           element={
             isLoggedIn ? (
               <Shopping cartItems={cartItems} setCartItems={setCartItems} />
             ) : (
-              <Navigate to="/Login" />
+              <Navigate to="/login" />
             )
           }
         />
         <Route
-          path="/ProductDetails/:id"
+          path="/product-details/:id"
           element={
             isLoggedIn ? (
               <ProductDetails
                 setCartItems={setCartItems}
                 cartItems={cartItems}
+                setWishlist={setWishlist}
+                wishlist={wishlist}
+                user={user}
               />
             ) : (
-              <Navigate to="/Login" />
+              <Navigate to="/login" />
             )
           }
         />
 
-        <Route path="/Register" element={<Register />} />
         <Route
-          path="/Login"
+          path="/wishlist"
+          element={
+            isLoggedIn ? (
+              <Wishlist
+                wishlist={wishlist}
+                cartItems={cartItems}
+                setCartItems={setCartItems}
+                setWishlist={setWishlist}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/login"
           element={<Login setIsLoggedIn={setIsLoggedIn} />}
         />
       </Routes>

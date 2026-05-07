@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import Product from "./components/Product";
-import SearchNav from "./components/SearchNav";
-import SideNav from "./components/SideNav";
-import "./App.css";
+import { useState } from "react";
+import Product from "../components/Product";
+import SearchNav from "../components/SearchNav";
+import SideNav from "../components/SideNav";
 
 const Home = ({ setCartItems, cartItems, user, setIsLoggedIn }) => {
   const [searchText, setSearchText] = useState("");

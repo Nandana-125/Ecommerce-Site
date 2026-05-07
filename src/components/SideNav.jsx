@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import "./SideNav.css";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
@@ -18,7 +17,7 @@ const SideNav = ({ setCatFilter, cartItems }) => {
   return (
     <div className="side-nav">
       <div className="side-nav-header">
-        <Link to="/Shopping">
+        <Link to="/shopping-cart">
           <div className="wrapper">
             <FontAwesomeIcon icon={faCartShopping} />
             {totalItems > 0 && <span className="badge">{totalItems}</span>}
