@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Product from "../components/Product";
 import SearchNav from "../components/SearchNav";
 import SideNav from "../components/SideNav";
+import CartContext from "../context/CartContext";
+import AuthContext from "../context/AuthContext";
 
-const Home = ({ setCartItems, cartItems, user, setIsLoggedIn }) => {
+const Home = () => {
+  const { user, setIsLoggedIn } = useContext(AuthContext);
+  const { cartItems, setCartItems } = useContext(CartContext);
   const [searchText, setSearchText] = useState("");
   const [catFilter, setCatFilter] = useState("All");
   const [sortBy, setSortBy] = useState("default");

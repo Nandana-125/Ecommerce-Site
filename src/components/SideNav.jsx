@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./SideNav.css";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import CartContext from "../context/CartContext";
 
-const SideNav = ({ setCatFilter, cartItems }) => {
+const SideNav = ({ setCatFilter }) => {
+  const { cartItems } = useContext(CartContext);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const category = ["All", "beauty", "fragrances", "furniture", "groceries"];

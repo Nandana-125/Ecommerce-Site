@@ -1,5 +1,8 @@
+import { useContext } from "react";
 import "./Cart.css";
-const Cart = ({ cartItems, setCartItems }) => {
+import CartContext from "../context/CartContext";
+const Cart = () => {
+  const { cartItems, setCartItems } = useContext(CartContext);
   const handleDelete = (i) => {
     setCartItems(cartItems.filter((s, index) => index != i));
   };
