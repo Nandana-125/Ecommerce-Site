@@ -1,41 +1,36 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
-import Toast from "../components/Toast";
+import ToastContext from "../context/ToastContext";
+import AuthContext from "../context/AuthContext";
 
 const Register = () => {
+  const { showToast } = useContext(ToastContext);
+  const { login } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
-  const [added, setAdded] = useState(false);
-  const [message, setMessage] = useState("");
+
   const navigate = useNavigate();
 
   const handleCreate = () => {
     if (password !== confirmPass) {
-      setAdded(true);
-      setMessage("Passwords donot match❗️");
+      showToast("Passwords donot match❗️");
       return;
     }
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
     if (users.some((u) => u.email === email)) {
-      setAdded(true);
-      setMessage("Email already exists❗️");
+      showToast("Email already exists❗️");
     } else {
-      localStorage.setItem(
-        "users",
-        JSON.stringify([
-          ...users,
-          { name: username, email: email, password: password },
-        ])
-      );
-      setAdded(true);
-      setMessage("Account Created successfully ✅");
-      navigate("/Login");
+      const newUser = { name: username, email: email, password: password };
+      localStorage.setItem("users", JSON.stringify([...users, newUser]));
+
+      showToast("Account Created successfully ✅");
+      login(newUser);
+      navigate("/");
     }
-    setTimeout(() => setAdded(false), 2000);
   };
 
   return (
@@ -73,7 +68,6 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <Toast added={added} message={message} />
     </div>
   );
 };

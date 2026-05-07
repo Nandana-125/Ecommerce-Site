@@ -1,23 +1,19 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import Toast from "../components/Toast";
+import ToastContext from "../context/ToastContext";
+import AuthContext from "../context/AuthContext";
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = () => {
+  const { login } = useContext(AuthContext);
+  const { showToast } = useContext(ToastContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [added, setAdded] = useState(false);
-  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
   const handleLogin = () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
-    if (users === null) {
-      setAdded(true);
-      setMessage("⚠️ No users found");
-      return;
-    }
 
     if (users.some((u) => u.email === email && u.password === password)) {
       const loggedInUser = users.find(
@@ -25,13 +21,10 @@ const Login = ({ setIsLoggedIn }) => {
       );
 
       navigate("/");
-      setIsLoggedIn(true);
-      localStorage.setItem("currentUser", JSON.stringify(loggedInUser));
+      login(loggedInUser);
     } else {
-      setAdded(true);
-      setMessage("⚠️ No user found");
+      showToast("⚠️ No user found");
     }
-    setTimeout(() => setAdded(false), 2000);
   };
 
   return (
@@ -57,7 +50,6 @@ const Login = ({ setIsLoggedIn }) => {
           </div>
         </div>
       </div>
-      <Toast added={added} message={message} />
     </div>
   );
 };

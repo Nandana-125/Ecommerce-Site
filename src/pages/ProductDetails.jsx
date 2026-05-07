@@ -1,21 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./ProductDetails.css";
 import axios from "axios";
-import Toast from "../components/Toast";
-
-const ProductDetails = ({
-  setCartItems,
-  cartItems,
-  setWishlist,
-  wishlist,
-  user,
-}) => {
+import CartContext from "../context/CartContext";
+import ToastContext from "../context/ToastContext";
+import WishlistContext from "../context/WishlistContext";
+import AuthContext from "../context/AuthContext";
+const ProductDetails = () => {
+  const { user } = useContext(AuthContext);
+  const { showToast } = useContext(ToastContext);
+  const { wishlist, setWishlist } = useContext(WishlistContext);
   const { id } = useParams();
+  const { cartItems, setCartItems } = useContext(CartContext);
   const [products, setProducts] = useState({});
   const [quant, setQuant] = useState(1);
-  const [add, setAdded] = useState(false);
-  const [message, setMessage] = useState("");
   const [comment, setComment] = useState("");
   const [rate, setRate] = useState(0);
   const [userReview, setUserReview] = useState([]);
@@ -48,15 +46,12 @@ const ProductDetails = ({
           quantity: quant,
         },
       ]);
-    setMessage("Added " + products.title + " to cart ✅");
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+    showToast("Added " + products.title + " to cart ✅");
   };
 
   const handleWish = () => {
     if (wishlist.some((m) => m.name === products.title)) {
-      setMessage("Item already in wishlist 👀");
-      setAdded(true);
+      showToast("Item already in wishlist 👀");
     } else {
       setWishlist([
         ...wishlist,
@@ -69,10 +64,8 @@ const ProductDetails = ({
           reviews: products.reviews,
         },
       ]);
-      setMessage("Added " + products.title + " to wishlist ❤️");
-      setAdded(true);
+      showToast("Added " + products.title + " to wishlist ❤️");
     }
-    setTimeout(() => setAdded(false), 2000);
   };
 
   useEffect(() => {
@@ -132,7 +125,6 @@ const ProductDetails = ({
               </div>
             </div>
           </div>
-          <Toast added={add} message={message} />
           <div className="reviews">
             <h3>Reviews</h3>
             <h4>Total reviews ({allReviews?.length || 0}) </h4>
