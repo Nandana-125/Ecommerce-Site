@@ -1,6 +1,12 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useContext } from "react";
 
 const ToastContext = createContext(null);
+
+export const useToast = () => {
+  const context = useContext(ToastContext);
+  if (!context) throw new Error("useToast must be used inside ToastProvider");
+  return context;
+};
 
 export const ToastProvider = ({ children }) => {
   const [added, setAdded] = useState(false);

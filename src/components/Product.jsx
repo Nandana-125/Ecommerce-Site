@@ -1,32 +1,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Product.css";
-import CartContext from "../context/CartContext";
-import ToastContext from "../context/ToastContext";
+import { useCart } from "../context/CartContext";
+import { useToast } from "../context/ToastContext";
 const Product = ({ searchText, catFilter, sortBy }) => {
-  const { cartItems, setCartItems } = useContext(CartContext);
-  const { showToast } = useContext(ToastContext);
+  const { addToCart } = useCart();
+  const { showToast } = useToast();
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const handleClick = (name, price, image) => {
     showToast("Added " + name + " to cart ✅");
-
-    if (cartItems.some((m) => m.name === name)) {
-      setCartItems(
-        cartItems.map((m) =>
-          m.name === name ? { ...m, quantity: m.quantity + 1 } : m
-        )
-      );
-    } else
-      setCartItems([
-        ...cartItems,
-        { name: name, price: price, image: image, quantity: 1 },
-      ]);
+    const item = { name: name, price: price, image: image };
+    addToCart(item);
   };
 
   useEffect(() => {

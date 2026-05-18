@@ -8,28 +8,17 @@ import ToastContext from "../context/ToastContext";
 import WishlistContext from "../context/WishlistContext";
 
 const Wishlist = () => {
-  const { wishlist, setWishlist } = useContext(WishlistContext);
-  const { cartItems, setCartItems } = useContext(CartContext);
+  const { wishlist, removeWish } = useContext(WishlistContext);
+  const { addToCart } = useContext(CartContext);
   const { showToast } = useContext(ToastContext);
   const handleAdd = (name, price, image) => {
-    if (cartItems.some((m) => m.name === name)) {
-      setCartItems(
-        cartItems.map((m) =>
-          m.name === name ? { ...m, quantity: m.quantity + 1 } : m
-        )
-      );
-    } else
-      setCartItems([
-        ...cartItems,
-        { name: name, price: price, image: image, quantity: 1 },
-      ]);
-
+    const item = { name: name, price: price, image: image };
+    addToCart(item);
     showToast("Item added successfully ✅");
   };
 
   const handleRemove = (id) => {
-    setWishlist(wishlist.filter((f) => f.id !== id));
-
+    removeWish(id);
     showToast("Item Removed ❗️");
   };
   return (

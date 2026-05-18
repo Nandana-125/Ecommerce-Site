@@ -9,9 +9,9 @@ import AuthContext from "../context/AuthContext";
 const ProductDetails = () => {
   const { user } = useContext(AuthContext);
   const { showToast } = useContext(ToastContext);
-  const { wishlist, setWishlist } = useContext(WishlistContext);
+  const { addToWish } = useContext(WishlistContext);
   const { id } = useParams();
-  const { cartItems, setCartItems } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
   const [products, setProducts] = useState({});
   const [quant, setQuant] = useState(1);
   const [comment, setComment] = useState("");
@@ -30,42 +30,29 @@ const ProductDetails = () => {
   };
 
   const handleAdd = (name) => {
-    if (cartItems.some((m) => m.name === name)) {
-      setCartItems(
-        cartItems.map((m) =>
-          m.name === name ? { ...m, quantity: m.quantity + quant } : m
-        )
-      );
-    } else
-      setCartItems([
-        ...cartItems,
-        {
-          name: name,
-          price: products.price,
-          image: products.thumbnail,
-          quantity: quant,
-        },
-      ]);
+    const item = {
+      name: name,
+      price: products.price,
+      image: products.thumbnail,
+    };
+    addToCart(item, quant);
+
     showToast("Added " + products.title + " to cart ✅");
   };
 
   const handleWish = () => {
-    if (wishlist.some((m) => m.name === products.title)) {
-      showToast("Item already in wishlist 👀");
-    } else {
-      setWishlist([
-        ...wishlist,
-        {
-          id: products.id,
-          name: products.title,
-          price: products.price,
-          image: products.thumbnail,
-          rating: products.rating,
-          reviews: products.reviews,
-        },
-      ]);
-      showToast("Added " + products.title + " to wishlist ❤️");
-    }
+    const item = {
+      id: products.id,
+      name: products.title,
+      price: products.price,
+      image: products.thumbnail,
+      rating: products.rating,
+      reviews: products.reviews,
+    };
+    const added = addToWish(item);
+    added
+      ? showToast("Added to Wishlist ❤️")
+      : showToast("Item Already in wishlist ⚠️");
   };
 
   useEffect(() => {
