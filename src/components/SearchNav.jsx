@@ -1,13 +1,13 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faCartShopping, faSearch } from "@fortawesome/free-solid-svg-icons";
 import "./Search.css";
 import { useNavigate, Link } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 const SearchNav = ({ setSearchText }) => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useAuth();
   const [input, setInput] = useState("");
   const navigate = useNavigate();
   const handleChange = (e) => {

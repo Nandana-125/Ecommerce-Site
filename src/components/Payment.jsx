@@ -1,11 +1,12 @@
-import { useContext } from "react";
+import { useCart } from "../context/CartContext";
+import { useToast } from "../context/ToastContext";
 import "./Payment.css";
 import CartContext from "../context/CartContext";
 import ToastContext from "../context/ToastContext";
 
 const Payment = () => {
-  const { cartItems, setCartItems } = useContext(CartContext);
-  const { showToast } = useContext(ToastContext);
+  const { cartItems, setCartItems } = useCart();
+  const { showToast } = useToast();
   const final = cartItems
     .reduce((total, m) => total + m.quantity * m.price, 0)
     .toFixed(2);
