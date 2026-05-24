@@ -1,34 +1,46 @@
 .product {
+  background: var(--bg);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  gap: var(--space-5);
+  padding: var(--space-5);
 }
 
-.product a {
-  text-decoration: none;
-  color: inherit;
-}
 .price {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 .items {
-  padding: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  padding: var(--space-5);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
 }
 
 .items img {
-  width: 100%;
-  height: 150px;
+  max-width: 100%;
+  height: 250px;
   object-fit: contain;
-  background-color: #f9f9f9;
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
 }
 
 .product button {
-  background-color: transparent;
+  background: none;
   border: none;
+  cursor: pointer;
+  color: var(--primary);
+}
+.product button:hover {
+  color: var(--primary-hover);
+}
+
+.items:hover {
+  box-shadow: var(--shadow-lg);
 }
