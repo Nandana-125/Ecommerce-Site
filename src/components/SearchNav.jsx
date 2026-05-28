@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
+import { faHeart, faHome, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faCartShopping, faSearch } from "@fortawesome/free-solid-svg-icons";
 import "./Search.css";
 import { useNavigate, Link } from "react-router-dom";
@@ -36,6 +36,10 @@ const SearchNav = ({ setSearchText }) => {
 
         <FontAwesomeIcon icon={faCartShopping} />
         <FontAwesomeIcon icon={faUser} />
+        <Link to="/">
+          <FontAwesomeIcon icon={faHome} />
+        </Link>
+
         <p>{user.name}</p>
         <button onClick={handleLogout}>Logout</button>
       </div>

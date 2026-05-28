@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import "./Register.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ToastContext from "../context/ToastContext";
 import AuthContext from "../context/AuthContext";
 
@@ -39,32 +39,55 @@ const Register = () => {
         <div className="reg-content">
           <img src="../public/register.jpg" />
           <div className="reg-text">
-            <h1>Welcome To Shopaholic!</h1>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPass}
-              onChange={(e) => setConfirmPass(e.target.value)}
-            />
+            <div className="form-group">
+              <h1>Welcome To Shopaholic!🎊</h1>
+              <p>Best online shopping experience...</p>
+            </div>
+
+            <div className="form-group">
+              <p>Username</p>
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <p>Email id</p>
+              <input
+                type="text"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <p>Password</p>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <p>Confirm Password</p>
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPass}
+                onChange={(e) => setConfirmPass(e.target.value)}
+              />
+            </div>
+
             <button onClick={handleCreate}>Create Account</button>
+            <p>
+              Already have an account ? <Link to="/">Login</Link>
+            </p>
           </div>
         </div>
       </div>

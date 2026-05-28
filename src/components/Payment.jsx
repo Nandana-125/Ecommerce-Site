@@ -21,16 +21,10 @@ const Payment = () => {
   return (
     <div className="payment">
       <h1>Esimate Shipping</h1>
-      <input type="checkbox" id="gift" />
-      <label htmlFor="gift">Add a gift ?</label>
-
       <p>
         Subtotal : ${final}
         USD
       </p>
-      <input type="checkbox" id="terms" />
-      <label htmlFor="terms">accept terms and conditions</label>
-      <br />
       <button onClick={handleCheckout}>Checkout</button>
     </div>
   );
