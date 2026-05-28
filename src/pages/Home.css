@@ -1,0 +1,15 @@
+.content h2 {
+  font-size: var(--text-xl);
+  color: var(--text);
+}
+
+.content select {
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  max-width: 200px;
+}

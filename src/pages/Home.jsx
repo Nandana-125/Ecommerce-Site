@@ -4,6 +4,7 @@ import SearchNav from "../components/SearchNav";
 import SideNav from "../components/SideNav";
 import CartContext from "../context/CartContext";
 import AuthContext from "../context/AuthContext";
+import "./Home.css";
 
 const Home = () => {
   const { user, setIsLoggedIn } = useContext(AuthContext);
@@ -22,7 +23,6 @@ const Home = () => {
             user={user}
             setIsLoggedIn={setIsLoggedIn}
           />
-          <h2>Reccomended</h2>
           <select onChange={(e) => setSortBy(e.target.value)}>
             <option value="default">Default</option>
             <option value="price-asc">Price: Low to High</option>
