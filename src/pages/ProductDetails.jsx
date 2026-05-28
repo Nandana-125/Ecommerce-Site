@@ -6,6 +6,7 @@ import CartContext from "../context/CartContext";
 import ToastContext from "../context/ToastContext";
 import WishlistContext from "../context/WishlistContext";
 import AuthContext from "../context/AuthContext";
+import SearchNav from "../components/SearchNav";
 const ProductDetails = () => {
   const { user } = useContext(AuthContext);
   const { showToast } = useContext(ToastContext);
@@ -80,9 +81,7 @@ const ProductDetails = () => {
   return (
     <div>
       <div>
-        <Link to="/">
-          <button>🔙</button>
-        </Link>
+        <SearchNav />
       </div>
       {loading ? (
         <p>Loading ...</p>
@@ -92,23 +91,23 @@ const ProductDetails = () => {
             <img src={products.thumbnail} />
             <div className="product-text">
               <h1>{products.title}</h1>
-              <h4>{products.price}</h4>
-              <p style={{ padding: "0", margin: "0" }}>{products.category}</p>
-              <p>Quantity</p>
+              <div className="prod-tags">
+                <p>{products.category}</p>
+              </div>
+              <p>${products.price}</p>
               <div className="product-quantity">
                 <button onClick={handleDecrement}>-</button>
                 <p>{quant}</p>
                 <button onClick={handleIncrement}>+</button>
               </div>
-              <div className="product-add">
-                <button onClick={() => handleAdd(products.title)}>
-                  Add to cart
-                </button>
-              </div>
               <div>
-                <p>Description</p>
                 <p>{products.description}</p>
-                <button onClick={handleWish}>Add to wishlist</button>
+                <div className="product-add">
+                  <button onClick={() => handleAdd(products.title)}>
+                    Add to cart
+                  </button>
+                  <button onClick={handleWish}>Add to wishlist</button>
+                </div>
               </div>
             </div>
           </div>
@@ -118,10 +117,20 @@ const ProductDetails = () => {
             {(allReviews || []).map((m, index) => (
               <div key={index} className="review-content">
                 <div className="reviewer">
-                  <h5>{m.reviewerName}</h5>
+                  <div className="reviewer-prof">
+                    <img src="../public/profile.png" />
+                  </div>
+                  <p>{m.reviewerName}</p>
                 </div>
                 <div className="review-desc">
-                  <p> Rating ⭐️ : {m.rating}</p>
+                  <p>
+                    {" "}
+                    {Array(m.rating)
+                      .fill("⭐️")
+                      .map((star, i) => (
+                        <span key={i}>{star}</span>
+                      ))}
+                  </p>
                   <p>{m.comment}</p>
                 </div>
               </div>

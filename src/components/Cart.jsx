@@ -31,9 +31,7 @@ const Cart = () => {
         Total Items in cart (
         {cartItems.reduce((total, m) => total + m.quantity, 0)})
       </p>
-      <div className="empty">
-        {cartItems.length === 0 ? <p>Cart is empty !!</p> : null}
-      </div>
+
       <div className="cart-grid">
         <div className="cart-heading">
           <h4>Product</h4>
@@ -45,13 +43,10 @@ const Cart = () => {
         {cartItems.map((c, i) => (
           <div key={i} className="cart-product">
             <div className="cart-product-info">
-              <img
-                src={c.image}
-                style={{ maxWidth: "100px", maxHeight: "100px" }}
-              />
+              <img src={c.image} />
               <div className="cart-product-text">
                 <p>{c.name}</p>
-                <button onClick={() => handleDelete(i)}>remove</button>
+                <button onClick={() => handleDelete(i)}>Remove</button>
               </div>
             </div>
 
@@ -64,11 +59,6 @@ const Cart = () => {
             <p>${(c.quantity * c.price).toFixed(2)}</p>
           </div>
         ))}
-
-        <div className="cart-order-note">
-          <p>Order Notes - optional</p>
-          <textarea placeholder="I want to add delivery instructions..." />
-        </div>
       </div>
     </div>
   );
