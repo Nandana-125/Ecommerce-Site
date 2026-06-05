@@ -6,6 +6,7 @@ import { useContext } from "react";
 import CartContext from "../context/CartContext";
 import ToastContext from "../context/ToastContext";
 import WishlistContext from "../context/WishlistContext";
+import "./Wishlist.css";
 
 const Wishlist = () => {
   const { wishlist, removeWish } = useContext(WishlistContext);
@@ -22,7 +23,7 @@ const Wishlist = () => {
     showToast("Item Removed ❗️");
   };
   return (
-    <div>
+    <div className="wishlist-page">
       <h1>wishlist</h1>
       <div>
         <div className="product">
